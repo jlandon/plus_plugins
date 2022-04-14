@@ -24,6 +24,25 @@ internal class MethodCallHandler(
 
                 // Android does not support showing the share sheet at a particular point on screen.
                 share.share(
+                    call.argument<Any>("item") as String,
+                    call.argument<Any>("subject") as String?,
+                    isWithResult,
+                )
+
+                if (!isWithResult) {
+                    if (isResultRequested) {
+                        result.success("dev.fluttercommunity.plus/share/unavailable")
+                    } else {
+                        result.success(null)
+                    }
+                }
+            }
+            "shareText", "shareTextWithResult" -> {
+                expectMapArguments(call)
+                if (isWithResult && !manager.setCallback(result)) return
+
+                // Android does not support showing the share sheet at a particular point on screen.
+                share.share(
                     call.argument<Any>("text") as String,
                     call.argument<Any>("subject") as String?,
                     isWithResult,

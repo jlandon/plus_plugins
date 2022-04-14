@@ -193,6 +193,27 @@ TopViewControllerForViewController(UIViewController *viewController) {
 
         if ([@"share" isEqualToString:call.method] ||
             [@"shareWithResult" isEqualToString:call.method]) {
+          NSString *shareItem = arguments[@"item"];
+          NSString *shareSubject = arguments[@"subject"];
+
+          if (shareItem.length == 0) {
+            result([FlutterError errorWithCode:@"error"
+                                       message:@"Non-empty item expected"
+                                       details:nil]);
+            return;
+          }
+
+          UIViewController *topViewController =
+              TopViewControllerForViewController(RootViewController());
+          [self share:@[ shareItem ]
+                 withSubject:shareSubject
+              withController:topViewController
+                    atSource:originRect
+                    toResult:withResult ? result : nil];
+          if (!withResult)
+            result(nil);
+        } else if ([@"shareText" isEqualToString:call.method] ||
+                   [@"shareTextWithResult" isEqualToString:call.method]) {
           NSString *shareText = arguments[@"text"];
           NSString *shareSubject = arguments[@"subject"];
 

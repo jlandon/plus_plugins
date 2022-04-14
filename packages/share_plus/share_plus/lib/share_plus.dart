@@ -6,8 +6,7 @@ import 'dart:async';
 import 'dart:ui';
 
 import 'package:share_plus_platform_interface/share_plus_platform_interface.dart';
-export 'package:share_plus_platform_interface/share_plus_platform_interface.dart'
-    show ShareResult, ShareResultStatus;
+export 'package:share_plus_platform_interface/share_plus_platform_interface.dart' show ShareResult, ShareResultStatus;
 
 /// Plugin for summoning a platform share sheet.
 class Share {
@@ -29,12 +28,25 @@ class Share {
   /// May throw [PlatformException] or [FormatException]
   /// from [MethodChannel].
   static Future<void> share(
+    String item, {
+    String? subject,
+    Rect? sharePositionOrigin,
+  }) {
+    assert(item.isNotEmpty);
+    return _platform.share(
+      item,
+      subject: subject,
+      sharePositionOrigin: sharePositionOrigin,
+    );
+  }
+
+  static Future<void> shareText(
     String text, {
     String? subject,
     Rect? sharePositionOrigin,
   }) {
     assert(text.isNotEmpty);
-    return _platform.share(
+    return _platform.shareText(
       text,
       subject: subject,
       sharePositionOrigin: sharePositionOrigin,

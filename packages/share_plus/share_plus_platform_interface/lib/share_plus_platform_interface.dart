@@ -30,13 +30,26 @@ class SharePlatform extends PlatformInterface {
     _instance = instance;
   }
 
-  /// Share text.
+  /// Share an item.
   Future<void> share(
-    String text, {
+    String item, {
     String? subject,
     Rect? sharePositionOrigin,
   }) {
     return _instance.share(
+      item,
+      subject: subject,
+      sharePositionOrigin: sharePositionOrigin,
+    );
+  }
+
+  /// Share text.
+  Future<void> shareText(
+    String text, {
+    String? subject,
+    Rect? sharePositionOrigin,
+  }) {
+    return _instance.shareText(
       text,
       subject: subject,
       sharePositionOrigin: sharePositionOrigin,
@@ -60,13 +73,28 @@ class SharePlatform extends PlatformInterface {
     );
   }
 
-  /// Share text with Result.
+  /// Share an item with Result.
   Future<ShareResult> shareWithResult(
-    String text, {
+    String item, {
     String? subject,
     Rect? sharePositionOrigin,
   }) async {
     await _instance.share(
+      item,
+      subject: subject,
+      sharePositionOrigin: sharePositionOrigin,
+    );
+
+    return _resultUnavailable;
+  }
+
+  /// Share text with Result.
+  Future<ShareResult> shareTextWithResult(
+    String text, {
+    String? subject,
+    Rect? sharePositionOrigin,
+  }) async {
+    await _instance.shareText(
       text,
       subject: subject,
       sharePositionOrigin: sharePositionOrigin,
