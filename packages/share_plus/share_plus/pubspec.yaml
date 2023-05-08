@@ -36,7 +36,7 @@ dependencies:
   file: ^6.0.0
   url_launcher: ^6.1.2
   ffi: ^2.0.1
-  win32: ^3.0.0
+  win32: ">=3.0.0 <5.0.0"
 
 dev_dependencies:
   flutter_test:
